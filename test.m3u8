@@ -1,0 +1,7 @@
+#EXTM3U
+
+#EXTINF:-1 tvg-logo=”LINK LOGO IPTV” group-title=”GRUP/ KATEGORI IPTV”, spider
+https://www.googleapis.com/drive/v3/files/1tBY7dvjpIxxUqTxnJrNFEFBURJhY7GYb?alt=media&key=AIzaSyDo4V2HPd-hNv8lP7PV_dBW-D7e6b16MHw
+
+#EXTINF:-1 group-title=”GRUP/ KATEGORI IPTV 2 “, spidey
+https://www.googleapis.com/drive/v3/files/1ukaeu82lMyWGOb-QoIIeAvrKso3pE_Om?alt=media&key=AIzaSyDo4V2HPd-hNv8lP7PV_dBW-D7e6b16MHw
