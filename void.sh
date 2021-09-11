@@ -13,34 +13,34 @@ fi
 	
 function cek() {
 if [ "$(curl --connect-timeout 2 -w "%{http_code}" $xl 1>&1 2>&1 | grep 'curl' | awk '{print $2}')" != "(28)" ]; then
-	web=$xl
-	update
-	 #echo "Success $xl"
-		 elif [ "$(curl --connect-timeout 2 -w "%{http_code}" $tsel 1>&1 2>&1 | grep 'curl' | awk '{print $2}')" != "(28)" ]; then
-	 web=$tsel
-	 update
-	 #echo "Success $tsel"
-	 	 elif [ "$(curl --connect-timeout 2 -w "%{http_code}" $isat 1>&1 2>&1 | grep 'curl' | awk '{print $2}')" != "(28)" ]; then
-	web=$isat
-	update
-	 #echo "Success"
-	 	 elif [ "$(curl --connect-timeout 2 -w "%{http_code}" $tri 1>&1 2>&1 | grep 'curl' | awk '{print $2}')" != "(28)" ]; then
-	 web=$tri
-	 update
-	 #echo "Success $tri"
-	 	 elif [ "$(curl --connect-timeout 2 -w "%{http_code}" $smart 1>&1 2>&1 | grep 'curl' | awk '{print $2}')" != "(28)" ]; then
-	 web=$smart
-	 update
-	 #echo "Success $smart"
-else
-	echo "error"
-	error
+		web=$xl
+		update
+		echo "Success $xl"
+	elif [ "$(curl --connect-timeout 2 -w "%{http_code}" $tsel 1>&1 2>&1 | grep 'curl' | awk '{print $2}')" != "(28)" ]; then
+		web=$tsel
+		update
+		echo "Success $tsel"
+	elif [ "$(curl --connect-timeout 2 -w "%{http_code}" $isat 1>&1 2>&1 | grep 'curl' | awk '{print $2}')" != "(28)" ]; then
+		web=$isat
+		update
+		echo "Success $isat"
+	elif [ "$(curl --connect-timeout 2 -w "%{http_code}" $tri 1>&1 2>&1 | grep 'curl' | awk '{print $2}')" != "(28)" ]; then
+		web=$tri
+		update
+		echo "Success $tri"
+	elif [ "$(curl --connect-timeout 2 -w "%{http_code}" $smart 1>&1 2>&1 | grep 'curl' | awk '{print $2}')" != "(28)" ]; then
+		web=$smart
+		update
+	 e	cho "Success $smart"
+	else
+		echo "error"
+		error
 fi
 }
 
 function error(){
     echo "error"
-	/etc/init.d/network restart
+	#/etc/init.d/network restart
 	sleep 10
 	cek
 }
@@ -96,16 +96,12 @@ nistTime=$(curl --connect-timeout 2 -I --insecure $web | grep -i "date")
         *)
             continue
     esac
-	#echo $yearValue.$monthValue.$dateValue-$timeValue
+	echo $yearValue.$monthValue.$dateValue-$timeValue
     date --utc --set $yearValue.$monthValue.$dateValue-$timeValue
-	}
-	
+	}	
 	
 case "${1}" in
-  -c)
+   *)
     cek
-    ;;
-  -u)
-    update
     ;;
 esac
