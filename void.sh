@@ -12,35 +12,34 @@ fi
 	smart='https://www.smartfren.com/'
 	
 function cek() {
-if [ "$(curl --connect-timeout 2 -w "%{http_code}" $xl 1>&1 2>&1 | grep 'curl' | awk '{print $2}')" != "(28)" ]; then
-		web=$xl
-		update
-		echo "Success $xl"
-	elif [ "$(curl --connect-timeout 2 -w "%{http_code}" $tsel 1>&1 2>&1 | grep 'curl' | awk '{print $2}')" != "(28)" ]; then
-		web=$tsel
-		update
-		echo "Success $tsel"
-	elif [ "$(curl --connect-timeout 2 -w "%{http_code}" $isat 1>&1 2>&1 | grep 'curl' | awk '{print $2}')" != "(28)" ]; then
-		web=$isat
-		update
-		echo "Success $isat"
-	elif [ "$(curl --connect-timeout 2 -w "%{http_code}" $tri 1>&1 2>&1 | grep 'curl' | awk '{print $2}')" != "(28)" ]; then
-		web=$tri
-		update
-		echo "Success $tri"
-	elif [ "$(curl --connect-timeout 2 -w "%{http_code}" $smart 1>&1 2>&1 | grep 'curl' | awk '{print $2}')" != "(28)" ]; then
-		web=$smart
-		update
-	 e	cho "Success $smart"
-	else
-		echo "error"
-		error
+if curl -X "HEAD" --connect-timeout 3 -so /dev/null "http://www.xl.co.id/"; then
+	web=$xl
+	update
+	 echo "Success $xl"
+		 elif curl -X "HEAD" --connect-timeout 3 -so /dev/null "http://my.telkomsel.com/"; then
+	 web=$tsel
+	 update
+	 echo "Success $tsel"
+	 	 elif curl -X "HEAD" --connect-timeout 3 -so /dev/null "http://indosatooredoo.com/"; then
+	web=$isat
+	update
+	 echo "Success $isat"
+	 	 elif curl -X "HEAD" --connect-timeout 3 -so /dev/null "http://tri.co.id/"; then
+	 web=$tri
+	 update
+	 echo "Success $tri"
+	 	 elif curl -X "HEAD" --connect-timeout 3 -so /dev/null "http://www.smartfren.com/"; then
+	 web=$smart
+	 update
+	 echo "Success $smart"
+else
+	echo "error"
+	error
 fi
 }
 
 function error(){
     echo "error"
-	#/etc/init.d/network restart
 	sleep 10
 	cek
 }
@@ -98,10 +97,14 @@ nistTime=$(curl --connect-timeout 2 -I --insecure $web | grep -i "date")
     esac
 	echo $yearValue.$monthValue.$dateValue-$timeValue
     date --utc --set $yearValue.$monthValue.$dateValue-$timeValue
-	}	
+	}
+	
 	
 case "${1}" in
-   *)
+  *)
     cek
+    ;;
+  -u)
+    update
     ;;
 esac
